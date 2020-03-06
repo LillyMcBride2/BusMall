@@ -68,28 +68,6 @@ function productClick(event) {
       nextProduct3 = Math.floor(Math.random() * allProducts.length);
     }
   
-    product1 = nextProduct1;
-    allProducts[product1].timesSeen++;
-    product2 = nextProduct2;
-    allProducts[product2].timesSeen++;
-    product3 = nextProduct3;
-    allProducts[product3].timesSeen++;
-  
-
-
-
-
-
-    // Display the product images
-    productElement[0].src = allProducts[product1].url;
-    productElement[1].src = allProducts[product2].url;
-    productElement[2].src = allProducts[product3].url;
-  
-
-
-
-
-
 
 
     if(totalClicks >= rounds) {
@@ -108,11 +86,6 @@ function productClick(event) {
         createUL.appendChild(createLI);
       }
       resultsElement.appendChild(createUL);
-
-
-
-      
-
     if(totalClicks === rounds) {
         for (var j = 0; j < productElements.length; j++) {
           productElement[j].removeEventListener('click', productClick());
@@ -120,14 +93,6 @@ function productClick(event) {
       }
     }
     }
-
-
-
-
-
-
-
-
 
   // Create even listener to run function when a product is clicked
   for (var i = 0; i < productElement.length; i++) {
