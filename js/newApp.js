@@ -11,6 +11,7 @@ function Product(name, imageUrl) {
   this.name = name;
   this.imageUrl = imageUrl;
   this.timesClicked = 0;
+  this.timesSeen = 0;
   allProducts.push(this);
 }
 // actually create our products
@@ -54,7 +55,7 @@ function imageWasClicked(event) {
   } else if (event.srcElement.id === '3') {
     allProducts[product3].timesClicked++;
   }
-}
+
   // pick from random Products to display and check against duplicates
   var nextProduct1 = Math.floor(Math.random() * allProducts.length);
   while((nextProduct1 === product1) || (nextProduct1 === product2) || (nextProduct1 === product3)) {
@@ -105,8 +106,8 @@ function imageWasClicked(event) {
       }
     }
   }
-
+}
 // Create even listener to run function when a product is clicked
 for (var i = 0; i < imageElements.length; i++) {
-  imageElements[i].addEventListener('click', imageWasClicked());
+  imageElements[i].addEventListener('click', imageWasClicked);
 }
