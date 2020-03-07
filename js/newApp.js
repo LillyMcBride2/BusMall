@@ -83,8 +83,7 @@ function imageWasClicked(event) {
   imageElements[1].src = allProducts[product2].imageUrl;
   imageElements[2].src = allProducts[product3].imageUrl;
 
- 
-  if(totalClicks >= rounds) {
+  if(totalClicks === rounds) {
     // We've reached the maximum number of clicks 
     var resultsElement = document.getElementsByTagName('aside')[0];
     if(resultsElement.firstElementChild){
@@ -100,14 +99,15 @@ function imageWasClicked(event) {
       createUL.appendChild(createLI);
     }
     resultsElement.appendChild(createUL);
-  if(totalClicks === rounds) {
-      for (var j = 0; j < imageElements.length; j++) {
-        imageElements[j].removeEventListener('click', imageWasClicked());
-      }
     }
   }
-}
+
 // Create even listener to run function when a product is clicked
 for (var i = 0; i < imageElements.length; i++) {
   imageElements[i].addEventListener('click', imageWasClicked);
+}
+if(totalClicks === rounds) {
+    for (var j = 0; j < productElements.length; j++) {
+      imageElements[j].removeEventListener('click', imageWasClicked);
+    }
 }
