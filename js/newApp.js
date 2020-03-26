@@ -99,15 +99,56 @@ function imageWasClicked(event) {
       createUL.appendChild(createLI);
     }
     resultsElement.appendChild(createUL);
-    }
   }
-
+  if (totalClicks === rounds) {
+    for (var j = 0; j < imageElements.length; j++) {
+      imageElements[j].removeEventListener('click', imageWasClicked);
+    }
+    createChart();
+  }
+}
 // Create even listener to run function when a product is clicked
 for (var i = 0; i < imageElements.length; i++) {
   imageElements[i].addEventListener('click', imageWasClicked);
 }
-if(totalClicks === rounds) {
-    for (var j = 0; j < productElements.length; j++) {
-      imageElements[j].removeEventListener('click', imageWasClicked);
+
+function createChart() {
+  // Chart code thanks to https://www.chartjs.org/docs/latest/
+  var ctx = document.getElementById('voteChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      // Create labels from array of Products
+      labels: getProductArray('name'),
+      datasets: [{
+        // First key label
+        label: '# of Votes',
+        // First data set
+        data: getProductArray('timesClicked'),
+        backgroundColor: colorSet('background'),
+        borderColor: colorSet('border'),
+        borderWidth: 1
+      },
+      {
+        // Second Key Label
+        label: '# of Times Seen',
+        // Second Data Set
+        data: getProductArray('timesSeen'),
+        backgroundColor: colorSet('background'),
+        borderColor: colorSet('border'),
+
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          }
+        }]
+      }
     }
+  });
 }
