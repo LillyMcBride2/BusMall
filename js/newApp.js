@@ -14,6 +14,13 @@ function Product(name, imageUrl) {
   this.timesSeen = 0;
   allProducts.push(this);
 }
+function getAllProducts(productProperty) {
+  var answer = [];
+  for (var i = 0; i < allProducts.length; i++) {
+    answer[i] = allProducts[i][productProperty];
+  }
+  return answer;
+}
 // actually create our products
 new Product('Bag', 'images/bag.jpg');
 new Product('Banana Slicer', 'images/banana.jpg');
@@ -107,6 +114,28 @@ function imageWasClicked(event) {
     createChart();
   }
 }
+// Creates array of colors
+function colorSet(colorType) {
+  var colorArray = [];
+  for (var i = 0; i < allProducts.length; i++) {
+    colorArray.push(randomColor(colorType));
+  }
+  return colorArray;
+}
+
+// Random color generator based on if backgound or border color
+function randomColor(colorType) {
+  var r = Math.floor(Math.random() * 256);
+  var g = Math.floor(Math.random() * 256);
+  var b = Math.floor(Math.random() * 256);
+  if (colorType === 'background') {
+    var color = 'rgb(' + r + ',' + g + ',' + b + ', 0.4)';
+  }
+  else if (colorType === 'border') {
+    color = 'rgb(' + r + ',' + g + ',' + b + ', 1)';
+  }
+  return color;
+}
 // Create even listener to run function when a product is clicked
 for (var i = 0; i < imageElements.length; i++) {
   imageElements[i].addEventListener('click', imageWasClicked);
@@ -114,17 +143,17 @@ for (var i = 0; i < imageElements.length; i++) {
 
 function createChart() {
   // Chart code thanks to https://www.chartjs.org/docs/latest/
-  var ctx = document.getElementById('voteChart').getContext('2d');
+  var ctx = document.getElementById('resultsChart').getContext('2d');
   new Chart(ctx, {
     type: 'bar',
     data: {
       // Create labels from array of Products
-      labels: getProductArray('name'),
+      labels: getAllProducts('name'),
       datasets: [{
         // First key label
         label: '# of Votes',
         // First data set
-        data: getProductArray('timesClicked'),
+        data: getAllProducts('timesClicked'),
         backgroundColor: colorSet('background'),
         borderColor: colorSet('border'),
         borderWidth: 1
@@ -133,7 +162,7 @@ function createChart() {
         // Second Key Label
         label: '# of Times Seen',
         // Second Data Set
-        data: getProductArray('timesSeen'),
+        data: getAllProducts('timesSeen'),
         backgroundColor: colorSet('background'),
         borderColor: colorSet('border'),
 
